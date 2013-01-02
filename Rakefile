@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+require 'bubble-wrap'
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project'
 
