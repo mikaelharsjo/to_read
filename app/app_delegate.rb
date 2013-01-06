@@ -27,8 +27,11 @@ class AppDelegate
 					:headers => {"Authorization" => "GoogleLogin auth=DQAAAOEAAACiztP-p4hWZTohXl-e4LlRlRcCrfrRNV2wW3vGyaPbHKeVwIS3w9RJ0tH3MAdX7RdnXWei2gGthtzNzaAIyyuVhqYdecu_7P3fpIJVW_YCRlcvbzkOcvOS6y3Tx2OvhshLT7oLAiC7x9wusyeQPUPnSwaF8KcbG8fdrjeJ52cGINxbEL47ciwXMfApLyzqHEqdlxO7vihSoU132FXaiIeRE4sjSOEdAPLoENm1nTQ0nKCZgEXBz0m6gx79NldMhmSk3iJD6D5ENwfCF3M7kEU1WILnx2FVGsvKHNMjVShh_2HL0GlWcc18GqCjNK5u7FE"}
 				}) do |response|
 				#puts response
-				unreadcounts = JSON.parse(response.body.to_str) #.unreadcounts
-				puts unreadcounts['unreadcounts']
+				unreadcounts = JSON.parse(response.body.to_str)['unreadcounts'] #.unreadcounts
+				unreadcounts.each do |feed| 
+					puts(feed.count)
+				end
+
 				#puts response.body.to_str
 			end	
 		end
