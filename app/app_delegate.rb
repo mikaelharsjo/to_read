@@ -1,14 +1,15 @@
 class AppDelegate
-	include BubbleWrap
-		# https://code.google.com/apis/console/#project:232700103718:access
-		CLIENT_ID = '232700103718.apps.googleusercontent.com'
-		CLIENT_SECRET = 'msGejkhE_enVitNpjJOYyneN'	
+	include BubbleWrap	
 
 	def application(application, didFinishLaunchingWithOptions:launchOptions)
-		redirect_uri = 'http://localhost'
-		scope = 'http://www.google.com/reader/api/*'
-		response_type = 'code'
-		App.open_url("https://accounts.google.com/o/oauth2/auth?response_type=#{response_type}&client_id=#{CLIENT_ID}&redirect_uri=#{redirect_uri}&scope=#{scope}")
+		UIApplication.sharedApplication.setStatusBarHidden(true, withAnimation:UIStatusBarAnimationFade)
+    	@window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
+    	@window.rootViewController = WebViewController.alloc.init
+    	@window.makeKeyAndVisible
+		#redirect_uri = 'urn:ietf:wg:oauth:2.0:oob' #'http://localhost'
+		#scope = 'http://www.google.com/reader/api/*'
+		#response_type = 'code'
+		#App.open_url("https://accounts.google.com/o/oauth2/auth?response_type=#{response_type}&client_id=#{CLIENT_ID}&redirect_uri=#{redirect_uri}&scope=#{scope}")
 
 		#signInAndGetUnreadCount do |count| 
 		#	puts(count)
