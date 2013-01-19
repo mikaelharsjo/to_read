@@ -33,6 +33,8 @@ class WebViewController < UIViewController
 	# Only add the web view when the page has finished loading
 	def webViewDidFinishLoad(webView)
 		self.view.addSubview(@webView)
+		html = webView.stringByEvaluatingJavaScriptFromString("document.body.innerHTML")
+		puts html
 	end
 	
 	# Enable rotation
