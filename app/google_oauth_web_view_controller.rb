@@ -1,5 +1,5 @@
 class GoogleOauthWebViewController < UIViewController
-		# https://code.google.com/apis/console/#project:232700103718:access
+	# https://code.google.com/apis/console/#project:232700103718:access
 	CLIENT_ID = '232700103718.apps.googleusercontent.com'
 	CLIENT_SECRET = 'msGejkhE_enVitNpjJOYyneN'  
 	def loadView
@@ -35,8 +35,9 @@ class GoogleOauthWebViewController < UIViewController
 		self.view.addSubview(@webView)
 		# get code if authentication is done
 		code = webView.stringByEvaluatingJavaScriptFromString("document.getElementById('code').value")
-		if code
-			# TODO: save code
+		unless code.empty? 
+		#	# TODO: save code
+			puts code
 			webView.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString('http://google.com/reader')))
 		end	
 	end
