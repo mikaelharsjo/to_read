@@ -4,7 +4,7 @@ class AppDelegate
 	def application(application, didFinishLaunchingWithOptions:launchOptions)
 		UIApplication.sharedApplication.setStatusBarHidden(true, withAnimation:UIStatusBarAnimationFade)
     	@window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    	@window.rootViewController = WebViewController.alloc.init
+    	@window.rootViewController = GoogleOauthWebViewController.alloc.init
     	@window.makeKeyAndVisible
 		#redirect_uri = 'urn:ietf:wg:oauth:2.0:oob' #'http://localhost'
 		#scope = 'http://www.google.com/reader/api/*'

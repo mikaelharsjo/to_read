@@ -1,4 +1,4 @@
-class WebViewController < UIViewController
+class GoogleOauthWebViewController < UIViewController
 		# https://code.google.com/apis/console/#project:232700103718:access
 	CLIENT_ID = '232700103718.apps.googleusercontent.com'
 	CLIENT_SECRET = 'msGejkhE_enVitNpjJOYyneN'  
@@ -33,8 +33,11 @@ class WebViewController < UIViewController
 	# Only add the web view when the page has finished loading
 	def webViewDidFinishLoad(webView)
 		self.view.addSubview(@webView)
-		html = webView.stringByEvaluatingJavaScriptFromString("document.body.innerHTML")
-		puts html
+		# get code if authentication is done
+		code = webView.stringByEvaluatingJavaScriptFromString("document.getElementById('code').value")
+		if code
+			puts code
+		end	
 	end
 	
 	# Enable rotation
