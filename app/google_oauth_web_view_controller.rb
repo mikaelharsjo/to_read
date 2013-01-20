@@ -36,7 +36,8 @@ class GoogleOauthWebViewController < UIViewController
 		# get code if authentication is done
 		code = webView.stringByEvaluatingJavaScriptFromString("document.getElementById('code').value")
 		if code
-			puts code
+			# TODO: save code
+			webView.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString('http://google.com/reader')))
 		end	
 	end
 	
