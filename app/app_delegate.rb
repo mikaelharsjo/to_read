@@ -5,7 +5,7 @@ class AppDelegate
 		UIApplication.sharedApplication.setStatusBarHidden(true, withAnimation:UIStatusBarAnimationFade)
     	@window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
     	@window.rootViewController = GoogleOauthWebViewController.alloc.init
-    	@window.makeKeyAndVisible		
+    	@window.makeKeyAndVisible	
 
 		true
  	end
