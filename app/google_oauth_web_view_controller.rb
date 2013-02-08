@@ -43,29 +43,36 @@ class GoogleOauthWebViewController < UIViewController
 
 		unless code.empty? 
 			puts code
-			#sleep 1
-			#4/hxyovksf3D1PuQEwvuwSgyhN6yMB.IrgwvnlEuWIYsNf4jSVKMpYkiC7neAI
-			#code = '4%2Fhxyovksf3D1PuQEwvuwSgyhN6yMB.IrgwvnlEuWIYsNf4jSVKMpYkiC7neAI'
-			url = "https://accounts.google.com/o/oauth2/token?code=#{code}&client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&redirect_uri=#{REDIRECT_URI}&grant_type=authorization_code" #    code=#{code}&client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&redirect_uri=#{REDIRECT_URI}&grant_type=authorization_code"
-			#puts url
-			#url = url_encode(url)
-			#url = url + escape2(params)
-			#puts url
-			payload = {
-				code: code,
-				client_id: CLIENT_ID,
-				client_secret: CLIENT_SECRET,
-				redirect_uri: REDIRECT_URI,
-				grant_type: 'authorization_code',
-				
-			}
-			HTTP.post(url, 
-				{
-					:headers => {"Content-Type" => "application/x-www-form-urlencoded"}
-				}) do |response| #{payload: "foo=bar", headers: {"Content-Type": "application/x-www-form-urlencoded"}}) do |response|				
-				puts response
-				puts response.body.to_str
-			end
+			url_string = "https://accounts.google.com/o/oauth2/token"
+			post_body = "code=#{code}&client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&redirect_uri=#{REDIRECT_URI}&grant_type=authorization_code"
+			url = NSURL.URLWithString(url_string)
+
+			request = NSMutableURLRequest.requestWithURL(url)
+			request.setTimeoutInterval(30)
+			request.setHTTPMethod("POST")
+			request.setHTTPBody(post_body.to_s.dataUsingEncoding(NSUTF8StringEncoding))
+			queue = NSOperationQueue.alloc.init
+
+			NSURLConnection.sendAsynchronousRequest(request,
+				queue: queue,
+				completionHandler: lambda do |response, data, error|
+				if(data.length > 0 && error.nil?)
+					p data
+					p response
+					html = NSString.alloc.initWithData(data, encoding: NSUTF8StringEncoding)
+					#puts data.access_token
+					#puts data.token_type
+					#puts data.expires_in
+					#puts refresh_token
+					p "HTML = #{html}"
+				elsif( data.length == 0 && error.nil? )
+					p "Nothing was downloaded"
+				elsif(!error.nil?)
+					p "Error: #{error}"
+				end
+				end
+			)
+
 			#webView.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString('http://google.com/reader')))
 		end	
 	end
