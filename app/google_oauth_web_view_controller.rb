@@ -42,7 +42,7 @@ class GoogleOauthWebViewController < UIViewController
 		code = webView.stringByEvaluatingJavaScriptFromString("document.getElementById('code').value")
 
 		unless code.empty? 
-			puts code
+			#puts code
 			url_string = "https://accounts.google.com/o/oauth2/token"
 			post_body = "code=#{code}&client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&redirect_uri=#{REDIRECT_URI}&grant_type=authorization_code"
 			url = NSURL.URLWithString(url_string)
@@ -57,9 +57,13 @@ class GoogleOauthWebViewController < UIViewController
 				queue: queue,
 				completionHandler: lambda do |response, data, error|
 				if(data.length > 0 && error.nil?)
-					p data
-					p response
-					html = NSString.alloc.initWithData(data, encoding: NSUTF8StringEncoding)
+					json = JSON.parse data
+
+					p json
+					p json['token_type']
+					#p data
+					#p response
+					#html = NSString.alloc.initWithData(data, encoding: NSUTF8StringEncoding)
 					#puts data.access_token
 					#puts data.token_type
 					#puts data.expires_in
